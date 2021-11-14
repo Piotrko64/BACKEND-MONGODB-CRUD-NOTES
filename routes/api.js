@@ -1,8 +1,8 @@
 const express= require('express');
 const router = express.Router();
 
-const {home} = require('../actions/api/test');
+const notesActions = require('../actions/api/notes');
 
-router.get('/', home);
+router.get('/', notesActions.saveNotes);
 
-module.exports=router;
+module.exports = router;
