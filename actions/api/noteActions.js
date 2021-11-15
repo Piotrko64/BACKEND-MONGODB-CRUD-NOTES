@@ -7,13 +7,18 @@ module.exports={
        
 const title = req.body.title;
 const body = req.body.body;
+try{
+    const note = new Note({
+        title: title,
+        body: body
+    });
+    
+    await note.save();
+}
+catch(err){
+    return res.status(422).json({message: err.message})
+}
 
-const note = new Note({
-    title: title,
-    body: body
-});
-
-await note.save();
 
 res.status(200).json(note)
     },
@@ -59,9 +64,16 @@ res.status(200).json(note)
       
 
 },
-    deleteNote(req,res){
-        const id = req.params.id;
-        res.send('delete'+id)
+    async deleteNote(req,res){
+        try{
+            const id = req.params.id;
+            const note = await Note.deleteOne({_id: id});
+            const actualNote = await Note.find({});
+        res.status(201).json(actualNote)
+          }
+          catch(err){
+              console.log(err)
+          }
  }
 }
 
