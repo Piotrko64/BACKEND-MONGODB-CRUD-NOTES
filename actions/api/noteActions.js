@@ -2,37 +2,62 @@ const Note = require('../../db/models/note')
 
 
 module.exports={
-    saveNotes(req,res){
-// const newNote = new Note({
-//             title: 'make a coffe', 
-//             body: "buy a water!!!"
-//         });
-//         try{
-//             newNote.save().then(()=>{
-//                 console.log("New Note is okey!")
-//             })
-//         }
-//         catch(err){
-//             console.log(err)
-//         }
-        
+   async saveNote(req,res){
+
+       
 const title = req.body.title;
 const body = req.body.body;
 
-        res.send('Note is ready'+title+body);
+const note = new Note({
+    title: title,
+    body: body
+});
+
+await note.save();
+
+res.status(200).json(note)
     },
 
-    getAllNotes(req,res){
-        res.send('API')
-},
-    getNote(req,res){
-        const id = req.params.id;
-        res.send('one note'+id)
+  async getAllNotes(req,res){
+    let doc;
+      try{
+ // Model.find({}, function)
+ doc = await Note.find({});
+
+ console.log(doc);
+ res.status(200).json(doc)
+      }
+      catch(err){
+          return res.status(500).json({message: err.message})
+      }
+       
+    
     
 },
-    updateNote(req,res){
+  async  getNote(req,res){
+      try{
         const id = req.params.id;
-    res.send('update'+id)
+        const note = await Note.findOne({_id: id});
+        res.status(200).json(note)
+      }
+      catch(err){
+          console.log(err)
+      }
+        
+    
+},
+  async  updateNote(req,res){
+        const id = req.params.id;
+        const title = req.body.title;
+        const body = req.body.body;
+   const note = await Note.updateOne({_id: id},{$set:{
+        title,
+        body
+    }});
+    const actualNote = await Note.findOne({_id: id});
+        res.status(201).json(actualNote)
+      
+
 },
     deleteNote(req,res){
         const id = req.params.id;
