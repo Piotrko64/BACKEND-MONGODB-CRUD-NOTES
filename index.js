@@ -1,12 +1,13 @@
 const express = require('express');
 const app=express();
 const {port} = require('./config');
-require('./db/mongoose')
+require('./db/mongoose');
+const cors=require('cors');
 const apiRouter = require("./routes/api");
 const bodyParser = require('body-parser');
 // body parser
 app.use(bodyParser.json())
-
+app.use(cors())
 
 
 app.use('/api', apiRouter);

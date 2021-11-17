@@ -7,20 +7,27 @@ module.exports={
        
 const title = req.body.title;
 const body = req.body.body;
+const important = req.body.important;
+
 try{
     const note = new Note({
         title: title,
-        body: body
+        body: body,
+        important: important,
+        like: 0,
+        comments: []
+        
     });
     
     await note.save();
+    res.status(200).json(note)
 }
 catch(err){
     return res.status(422).json({message: err.message})
 }
 
 
-res.status(200).json(note)
+
     },
 
   async getAllNotes(req,res){
@@ -29,7 +36,6 @@ res.status(200).json(note)
  // Model.find({}, function)
  doc = await Note.find({});
 
- console.log(doc);
  res.status(200).json(doc)
       }
       catch(err){
@@ -55,9 +61,11 @@ res.status(200).json(note)
         const id = req.params.id;
         const title = req.body.title;
         const body = req.body.body;
+        const important = req.body.important;
    const note = await Note.updateOne({_id: id},{$set:{
         title,
-        body
+        body,
+        important
     }});
     const actualNote = await Note.findOne({_id: id});
         res.status(201).json(actualNote)

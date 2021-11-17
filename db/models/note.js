@@ -8,6 +8,18 @@ const noteSchema = new mongoose.Schema({
     body:{
         type: String,
         required: true
+    },
+    important:{
+        type: Boolean,
+        required: true
+    },
+    like:{
+        type: Number,
+        required: true
+    },
+    comments:{
+        type: Array,
+        required: true
     }
 })
 
