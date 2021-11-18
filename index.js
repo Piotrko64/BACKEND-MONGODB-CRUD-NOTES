@@ -7,7 +7,10 @@ const apiRouter = require("./routes/api");
 const bodyParser = require('body-parser');
 // body parser
 app.use(bodyParser.json())
-app.use(cors())
+var corsOptions = {
+    origin: true,
+    }
+app.use(cors(corsOptions))
 
 
 app.use('/api', apiRouter);

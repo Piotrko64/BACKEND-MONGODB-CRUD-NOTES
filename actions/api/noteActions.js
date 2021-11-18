@@ -72,6 +72,35 @@ catch(err){
       
 
 },
+async updateNoteLike(req,res){
+    const equal = req.params.equal;
+    console.log(equal);
+    if(equal==='plus'){
+        try{
+            const id = req.params.id;
+            const actualNote = await Note.findOne({_id: id});
+            const actualLike =actualNote.like
+            await Note.updateOne({_id: id},{$set:{
+            like: actualLike+1
+        }})}
+        catch(err){
+            console.log(err)
+        };
+    }
+else{
+    try{
+        const id = req.params.id;
+        const actualNote = await Note.findOne({_id: id});
+        const actualLike =actualNote.like
+        await Note.updateOne({_id: id},{$set:{
+        like: actualLike-1
+    }})}
+    catch(err){
+        console.log(err)
+    }; 
+}
+    
+},
     async deleteNote(req,res){
         try{
             const id = req.params.id;
