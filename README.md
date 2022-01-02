@@ -15,11 +15,7 @@ this is react application created with CRA!
 - React-transition-group animations
 - Refresh data every 10 seconds
 - Button to refresh
-- Folder with simple testing aplication
 
-To testing application you need use cypress. Install and open Cypress:
-> npm i cypress
-> npx cypress open
-Find file crudtesting_spec.js and open it.
+
 
 
