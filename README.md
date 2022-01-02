@@ -11,7 +11,7 @@ and
 > npm start
 this is react application created with CRA!
 
-#Update 1.5:
+# Update 1.5:
 - React-transition-group animations
 - Refresh data every 10 seconds
 - Button to refresh
